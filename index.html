@@ -1011,6 +1011,30 @@
       [data-reveal]{transition:none !important}
       .track{transition:none !important}
       .btn, .nav__link, .hCard, .uspCard{transition:none !important}
+
+
+/* Impressum Layout (Single-File) */
+#impressum .panel{padding:18px}
+#impressum .legalGrid{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:14px;
+}
+#impressum .legalBlock{
+  border-radius:var(--radius2);
+  border:1px solid rgba(245,241,234,.10);
+  background:rgba(255,255,255,.04);
+  padding:14px;
+}
+#impressum .legalBlock--full{grid-column:1 / -1}
+#impressum .legalP{margin:0; line-height:1.7}
+#impressum .legalSpacer{height:10px}
+
+@media (max-width: 860px){
+  #impressum .legalGrid{grid-template-columns:1fr}
+}
+
+     
     }
   </style>
 </head>
@@ -1307,6 +1331,86 @@
     </section>
 
   </main>
+<!-- IMPRESSUM (Single-File) -->
+<section class="section section--shade" id="impressum" aria-label="Impressum">
+  <div class="wrap">
+    <header class="section__head" data-reveal>
+      <div>
+        <p class="kicker">Rechtliches</p>
+        <h2 class="h2">Impressum</h2>
+        <p class="muted">Angaben gemäß § 5 TMG und § 18 MStV.</p>
+      </div>
+      <div class="right">
+        <a class="btn btn--ghost" href="#top">Nach oben</a>
+      </div>
+    </header>
+
+    <div class="panel" data-reveal>
+      <div class="legalGrid">
+        <div class="legalBlock">
+          <h3 class="h3">Diensteanbieter</h3>
+          <p class="muted2 legalP">
+            <strong>[Der Stern / Firmenname / Inhaber]</strong><br>
+            [Straße Hausnr.]<br>
+            [PLZ Ort]<br>
+            Deutschland
+          </p>
+        </div>
+
+        <div class="legalBlock">
+          <h3 class="h3">Kontakt</h3>
+          <p class="muted2 legalP">
+            Telefon: <a href="tel:+49XXXXXXXXXX">[Telefonnummer]</a><br>
+            E-Mail: <a href="mailto:info@deine-domain.de">[E-Mail-Adresse]</a>
+          </p>
+        </div>
+
+        <div class="legalBlock">
+          <h3 class="h3">Vertretungsberechtigt</h3>
+          <p class="muted2 legalP">
+            [Vorname Nachname]
+          </p>
+
+          <div class="legalSpacer"></div>
+
+          <h3 class="h3">Umsatzsteuer</h3>
+          <p class="muted2 legalP">
+            USt-IdNr.: [DE…] (falls vorhanden)
+          </p>
+        </div>
+
+        <div class="legalBlock">
+          <h3 class="h3">Verantwortlich für den Inhalt (§ 18 Abs. 2 MStV)</h3>
+          <p class="muted2 legalP">
+            [Vorname Nachname]<br>
+            [Anschrift]
+          </p>
+        </div>
+
+        <div class="legalBlock legalBlock--full">
+          <h3 class="h3">Haftungshinweise</h3>
+
+          <p class="muted2 legalP">
+            <strong>Haftung für Inhalte:</strong> Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt.
+            Für Richtigkeit, Vollständigkeit und Aktualität übernehmen wir keine Gewähr.
+          </p>
+
+          <p class="muted2 legalP">
+            <strong>Haftung für Links:</strong> Diese Website enthält Links zu externen Websites Dritter.
+            Auf deren Inhalte haben wir keinen Einfluss. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter verantwortlich.
+          </p>
+
+          <p class="muted2 legalP" style="margin-bottom:0">
+            <strong>Urheberrecht:</strong> Inhalte und Werke auf dieser Website unterliegen dem deutschen Urheberrecht.
+            Vervielfältigung/Verwendung außerhalb der Grenzen des Urheberrechts nur mit Zustimmung der Rechteinhaber.
+          </p>
+        </div>
+      </div>
+
+      <p class="muted2 small" style="margin:14px 0 0">Stand: [Datum eintragen]</p>
+    </div>
+  </div>
+</section>
 
   <footer class="footer">
     <div class="wrap footer__row">
@@ -1316,7 +1420,6 @@
       </div>
       <div class="footer__links">
         <a href="impressum.html">Impressum</a>
-        <a href="datenschutz.html">Datenschutz</a>
         <a href="https://ersans-kebap.de/">Essen von Ersan’s</a>
       </div>
     </div>
@@ -1560,3 +1663,4 @@
 </body>
 
 </html>
+
