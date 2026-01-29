@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Impressum · Der Stern Bar · Dinkelsbühl</title>
+  <meta name="description" content="Impressum von Der Stern Bar in Dinkelsbühl. Betreiberangaben, Kontakt und rechtliche Hinweise." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --bg0:#070A12; --bg1:#0B1020; --bg2:#0E162B;
+      --ink:#F5F1EA; --muted:rgba(245,241,234,.78); --muted2:rgba(245,241,234,.62);
+      --gold:#D6B16B; --gold2:#F0D9A0; --accent:#7DD3FC;
+      --line:rgba(245,241,234,.10);
+      --card:rgba(255,255,255,.06);
+      --glass:rgba(10,12,18,.55);
+      --shadow:0 26px 80px rgba(0,0,0,.55);
+      --radius:18px; --radius2:26px; --wrap:1180px;
+      --ease:cubic-bezier(.2,.9,.2,1);
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--ink);
+      background:var(--bg0);
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+    a{color:inherit}
+    .wrap{width:min(var(--wrap), calc(100% - 44px)); margin:0 auto}
+
+    .bg{
+      position:fixed; inset:0; z-index:-3;
+      background:
+        radial-gradient(1100px 700px at 12% 10%, rgba(214,177,107,.16), transparent 60%),
+        radial-gradient(900px 600px at 88% 18%, rgba(125,211,252,.14), transparent 62%),
+        radial-gradient(900px 700px at 50% 110%, rgba(240,217,160,.12), transparent 62%),
+        linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 35%, var(--bg2) 100%);
+    }
+    .noise{
+      position:fixed; inset:0; z-index:-2; pointer-events:none;
+      opacity:.12;
+      background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/></filter><rect width="180" height="180" filter="url(%23n)" opacity="0.35"/></svg>');
+      mix-blend-mode:overlay;
+    }
+
+    .header{
+      position:sticky; top:0; z-index:60;
+      background:linear-gradient(180deg, rgba(7,10,18,.72), rgba(7,10,18,.45));
+      backdrop-filter:saturate(160%) blur(12px);
+      border-bottom:1px solid rgba(245,241,234,.08);
+    }
+    .header__row{
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      padding:14px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      text-decoration:none;
+      min-width:220px;
+    }
+    .brand__logo{
+      width:42px; height:42px; border-radius:12px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(245,241,234,.12);
+      object-fit:cover; object-position:center;
+      box-shadow:0 10px 28px rgba(0,0,0,.45);
+    }
+    .brand__name{font-weight:800; letter-spacing:.02em; line-height:1.05}
+    .brand__sub{display:block; font-size:.86rem; color:var(--muted2); margin-top:2px}
+
+    .nav{display:flex; align-items:center; gap:12px}
+    .nav__link{
+      text-decoration:none;
+      font-weight:650;
+      color:rgba(245,241,234,.86);
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid transparent;
+      transition:transform .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease);
+    }
+    .nav__link:hover{
+      transform:translateY(-1px);
+      background:rgba(255,255,255,.06);
+      border-color:rgba(245,241,234,.10);
+    }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 16px;
+      border-radius:999px;
+      border:1px solid rgba(245,241,234,.14);
+      background:rgba(255,255,255,.06);
+      color:rgba(245,241,234,.92);
+      font-weight:800;
+      text-decoration:none;
+      transition:transform .25s var(--ease), box-shadow .25s var(--ease), filter .25s var(--ease), background .25s var(--ease);
+      box-shadow:0 16px 44px rgba(0,0,0,.24);
+    }
+    .btn--primary{
+      border-color:transparent;
+      background:linear-gradient(135deg, rgba(214,177,107,1), rgba(240,217,160,1));
+      color:#0B0E16;
+      box-shadow:0 22px 60px rgba(214,177,107,.22);
+    }
+    .btn--primary:hover{transform:translateY(-2px); filter:brightness(1.03)}
+    .btn--ghost:hover{transform:translateY(-2px); background:rgba(255,255,255,.09)}
+
+    .burger{
+      display:none;
+      width:44px; height:44px;
+      border-radius:14px;
+      border:1px solid rgba(245,241,234,.14);
+      background:rgba(255,255,255,.05);
+    }
+    .burger span{display:block;height:2px;background:rgba(245,241,234,.86);margin:7px 11px;border-radius:2px}
+
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      text-transform:uppercase;
+      letter-spacing:.22em;
+      font-weight:900;
+      font-size:.78rem;
+      color:rgba(240,217,160,.92);
+    }
+    .kicker:before{
+      content:"";
+      width:24px; height:1px;
+      background:linear-gradient(90deg, rgba(214,177,107,.0), rgba(214,177,107,.9));
+    }
+    .h1{
+      font-family:Fraunces,serif;
+      font-size:clamp(2.2rem, 4.2vw, 3.1rem);
+      line-height:1.03;
+      margin:.35rem 0 .9rem;
+      letter-spacing:-.01em;
+    }
+    .h2{
+      font-family:Fraunces,serif;
+      font-size:clamp(1.55rem, 2.6vw, 2.1rem);
+      line-height:1.08;
+      margin:0 0 .65rem;
+      letter-spacing:-.01em;
+    }
+    .h3{font-family:Fraunces,serif;font-size:1.18rem;margin:0 0 .45rem}
+    .lead{font-size:1.02rem;line-height:1.68;color:var(--muted);max-width:70ch}
+    .muted{color:var(--muted)}
+    .muted2{color:var(--muted2)}
+    .small{font-size:.92rem}
+
+    .section{padding:72px 0; position:relative}
+    .section--shade:before{
+      content:""; position:absolute; inset:0; pointer-events:none; z-index:-1;
+      background:
+        radial-gradient(900px 520px at 12% 20%, rgba(214,177,107,.12), transparent 62%),
+        radial-gradient(900px 620px at 88% 10%, rgba(125,211,252,.10), transparent 62%),
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00));
+      border-top:1px solid rgba(245,241,234,.06);
+      border-bottom:1px solid rgba(245,241,234,.06);
+    }
+
+    .panel{
+      border-radius:var(--radius2);
+      border:1px solid rgba(245,241,234,.12);
+      background:rgba(255,255,255,.05);
+      box-shadow:0 18px 60px rgba(0,0,0,.26);
+      padding:16px;
+    }
+    .legalGrid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:14px;
+    }
+    .legalBlock{
+      border-radius:var(--radius2);
+      border:1px solid rgba(245,241,234,.12);
+      background:rgba(255,255,255,.04);
+      padding:14px;
+    }
+    .legalBlock--full{grid-column:1/-1}
+    .legalP{margin:0; line-height:1.7}
+
+    .footer{
+      padding:34px 0;
+      border-top:1px solid rgba(245,241,234,.10);
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+    }
+    .footer__row{display:flex; justify-content:space-between; gap:16px; align-items:flex-end; flex-wrap:wrap}
+    .footer__links{display:flex; gap:14px; flex-wrap:wrap}
+    .footer__links a{text-decoration:none; font-weight:800; color:rgba(245,241,234,.82)}
+    .footer__links a:hover{color:rgba(240,217,160,.95)}
+
+    @media (max-width: 980px){
+      .burger{display:inline-block}
+      .nav{
+        position:fixed;
+        left:16px; right:16px;
+        top:72px;
+        display:none;
+        flex-direction:column;
+        align-items:stretch;
+        gap:10px;
+        padding:14px;
+        border-radius:22px;
+        border:1px solid rgba(245,241,234,.14);
+        background:rgba(7,10,18,.78);
+        backdrop-filter:blur(14px) saturate(160%);
+        box-shadow:var(--shadow);
+      }
+      .nav.is-open{display:flex}
+      .legalGrid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="header">
+    <div class="wrap header__row">
+      <a class="brand" href="index.html#top" aria-label="Zur Startseite">
+        <img class="brand__logo" src="logo.png" alt="Der Stern Logo" />
+        <div class="brand__text">
+          <span class="brand__name">Der Stern</span>
+          <span class="brand__sub">Drinks · Stimmung · Bar-Food</span>
+        </div>
+      </a>
+
+      <nav class="nav" data-nav>
+        <a class="nav__link" href="index.html#top">Start</a>
+        <a class="nav__link" href="index.html#drinks">Highlights</a>
+        <a class="nav__link" href="index.html#ersans">Essen</a>
+        <a class="nav__link" href="index.html#gallery">Galerie</a>
+        <a class="nav__link" href="index.html#kontakt">Kontakt</a>
+        <a class="btn btn--primary" href="tel:+4998515507900">Anrufen</a>
+      </nav>
+
+      <button class="burger" type="button" aria-label="Menü öffnen" data-burger>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="section section--shade">
+      <div class="wrap">
+        <p class="kicker">Rechtliches</p>
+        <h1 class="h1">Impressum</h1>
+        <p class="lead">Angaben gemäß § 5 TMG und § 18 MStV.</p>
+
+        <div class="panel" style="margin-top:16px">
+          <div class="legalGrid">
+            <div class="legalBlock">
+              <h2 class="h2" style="margin:0 0 .5rem">Diensteanbieter</h2>
+              <p class="muted2 legalP">
+                <strong>[Der Stern / Firmenname / Inhaber]</strong><br>
+                [Straße Hausnr.]<br>
+                [PLZ Ort]<br>
+                Deutschland
+              </p>
+            </div>
+
+            <div class="legalBlock">
+              <h2 class="h2" style="margin:0 0 .5rem">Kontakt</h2>
+              <p class="muted2 legalP">
+                Telefon: <a href="tel:+49XXXXXXXXXX">[Telefonnummer]</a><br>
+                E-Mail: <a href="mailto:info@deine-domain.de">[E-Mail-Adresse]</a>
+              </p>
+            </div>
+
+            <div class="legalBlock">
+              <h3 class="h3">Vertretungsberechtigt</h3>
+              <p class="muted2 legalP">[Vorname Nachname]</p>
+
+              <div style="height:10px"></div>
+
+              <h3 class="h3">Umsatzsteuer</h3>
+              <p class="muted2 legalP">USt-IdNr.: [DE…] (falls vorhanden)</p>
+            </div>
+
+            <div class="legalBlock">
+              <h3 class="h3">Verantwortlich für den Inhalt (§ 18 Abs. 2 MStV)</h3>
+              <p class="muted2 legalP">
+                [Vorname Nachname]<br>
+                [Anschrift]
+              </p>
+            </div>
+
+            <div class="legalBlock legalBlock--full">
+              <h3 class="h3">Haftungshinweise</h3>
+              <p class="muted2 legalP">
+                <strong>Haftung für Inhalte:</strong> Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt.
+                Für Richtigkeit, Vollständigkeit und Aktualität übernehmen wir keine Gewähr.
+              </p>
+              <p class="muted2 legalP">
+                <strong>Haftung für Links:</strong> Diese Website enthält Links zu externen Websites Dritter.
+                Auf deren Inhalte haben wir keinen Einfluss. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter verantwortlich.
+              </p>
+              <p class="muted2 legalP" style="margin-bottom:0">
+                <strong>Urheberrecht:</strong> Inhalte und Werke auf dieser Website unterliegen dem deutschen Urheberrecht.
+                Eine Vervielfältigung/Verwendung außerhalb der Grenzen des Urheberrechts bedarf der Zustimmung der Rechteinhaber.
+              </p>
+            </div>
+          </div>
+
+          <p class="muted2 small" style="margin:14px 0 0">Stand: [Datum eintragen]</p>
+        </div>
+
+        <div style="margin-top:16px">
+          <a class="btn btn--ghost" href="index.html#top">Zurück zur Startseite</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__row">
+      <div>
+        <strong style="letter-spacing:.02em">Der Stern</strong>
+        <div class="muted2 small">© <span data-year></span> · Dinkelsbühl</div>
+      </div>
+      <div class="footer__links">
+        <a href="index.html#top">Start</a>
+        <a href="impressum.html">Impressum</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
+
+    // Mobile nav toggle
+    const burger = document.querySelector('[data-burger]');
+    const nav = document.querySelector('[data-nav]');
+    if (burger && nav) {
+      burger.addEventListener('click', () => nav.classList.toggle('is-open'));
+      nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('is-open')));
+    }
+  </script>
+</body>
+</html>
