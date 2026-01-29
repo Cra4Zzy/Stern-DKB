@@ -1,0 +1,1561 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title> Der Stern Bar · Dinkelsbühl | Drinks, Stimmung & Bar-Food</title>
+  <meta name="description" content="Premium Bar in Dinkelsbühl. Sitzplätze im Freien, Speisen an der Bar (Essen von Ersan’s). Route öffnen, anrufen, Zeiten checken." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =============================
+       styles.css
+       ============================= */
+    :root{
+      /* Luxury Nightlife Palette */
+      --bg0:#070A12;          /* midnight */
+      --bg1:#0B1020;          /* deep navy */
+      --bg2:#0E162B;          /* navy */
+      --ink:#F5F1EA;          /* ivory */
+      --muted:rgba(245,241,234,.78);
+      --muted2:rgba(245,241,234,.62);
+
+      --gold:#D6B16B;         /* champagne */
+      --gold2:#F0D9A0;
+      --accent:#7DD3FC;       /* subtle cool highlight */
+      --line:rgba(245,241,234,.10);
+
+      --card:rgba(255,255,255,.06);
+      --card2:rgba(255,255,255,.08);
+      --glass:rgba(10,12,18,.55);
+      --shadow:0 26px 80px rgba(0,0,0,.55);
+
+      --radius:18px;
+      --radius2:26px;
+      --wrap:1180px;
+
+      --ease:cubic-bezier(.2,.9,.2,1);
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--ink);
+      background:var(--bg0);
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+    a{color:inherit}
+    img{max-width:100%;display:block}
+
+    .wrap{width:min(var(--wrap), calc(100% - 44px)); margin:0 auto}
+
+    /* ======= Global background (smooth section blend) ======= */
+    .bg{
+      position:fixed; inset:0; z-index:-3;
+      background:
+        radial-gradient(1100px 700px at 12% 10%, rgba(214,177,107,.16), transparent 60%),
+        radial-gradient(900px 600px at 88% 18%, rgba(125,211,252,.14), transparent 62%),
+        radial-gradient(900px 700px at 50% 110%, rgba(240,217,160,.12), transparent 62%),
+        linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 35%, var(--bg2) 100%);
+    }
+    /* Subtle noise overlay */
+    .noise{
+      position:fixed; inset:0; z-index:-2; pointer-events:none;
+      opacity:.12;
+      background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/></filter><rect width="180" height="180" filter="url(%23n)" opacity="0.35"/></svg>');
+      mix-blend-mode:overlay;
+    }
+
+    /* ======= Header ======= */
+    .header{
+      position:sticky; top:0; z-index:60;
+      background:linear-gradient(180deg, rgba(7,10,18,.72), rgba(7,10,18,.45));
+      backdrop-filter:saturate(160%) blur(12px);
+      border-bottom:1px solid rgba(245,241,234,.08);
+    }
+    .header__row{
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      padding:14px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      text-decoration:none;
+      min-width: 220px;
+    }
+    .brand__logo{
+      width:42px; height:42px; border-radius:12px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(245,241,234,.12);
+      /* Logo soll den Container komplett ausfüllen */
+      object-fit:cover;
+      object-position:center;
+      box-shadow:0 10px 28px rgba(0,0,0,.45);
+    }
+    .brand__name{
+      font-weight:800; letter-spacing:.02em;
+      line-height:1.05;
+    }
+    .brand__sub{
+      display:block; font-size:.86rem; color:var(--muted2); margin-top:2px;
+    }
+
+    .nav{display:flex; align-items:center; gap:12px}
+    .nav__link{
+      text-decoration:none;
+      font-weight:650;
+      color:rgba(245,241,234,.86);
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid transparent;
+      transition:transform .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease);
+      outline:none;
+    }
+    .nav__link:hover{
+      transform:translateY(-1px);
+      background:rgba(255,255,255,.06);
+      border-color:rgba(245,241,234,.10);
+    }
+    .nav__link.is-active{
+      background:rgba(214,177,107,.12);
+      border-color:rgba(214,177,107,.22);
+    }
+
+    /* Buttons */
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 16px;
+      border-radius:999px;
+      border:1px solid rgba(245,241,234,.14);
+      background:rgba(255,255,255,.06);
+      color:rgba(245,241,234,.92);
+      font-weight:800;
+      text-decoration:none;
+      transition:transform .25s var(--ease), box-shadow .25s var(--ease), filter .25s var(--ease), background .25s var(--ease);
+      box-shadow:0 16px 44px rgba(0,0,0,.24);
+    }
+    .btn:focus-visible{outline:3px solid rgba(240,217,160,.45); outline-offset:3px}
+
+    .btn--primary{
+      border-color:transparent;
+      background:linear-gradient(135deg, rgba(214,177,107,1), rgba(240,217,160,1));
+      color:#0B0E16;
+      box-shadow:0 22px 60px rgba(214,177,107,.22);
+    }
+    .btn--primary:hover{transform:translateY(-2px); filter:brightness(1.03)}
+
+    .btn--ghost{
+      background:rgba(255,255,255,.06);
+    }
+    .btn--ghost:hover{transform:translateY(-2px); background:rgba(255,255,255,.09)}
+
+    .nav__cta{margin-left:6px}
+
+    /* Burger */
+    .burger{
+      display:none;
+      width:44px; height:44px;
+      border-radius:14px;
+      border:1px solid rgba(245,241,234,.14);
+      background:rgba(255,255,255,.05);
+    }
+    .burger span{display:block;height:2px;background:rgba(245,241,234,.86);margin:7px 11px;border-radius:2px}
+
+    /* ======= Typography ======= */
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      text-transform:uppercase;
+      letter-spacing:.22em;
+      font-weight:900;
+      font-size:.78rem;
+      color:rgba(240,217,160,.92);
+    }
+    .kicker:before{
+      content:"";
+      width:24px; height:1px;
+      background:linear-gradient(90deg, rgba(214,177,107,.0), rgba(214,177,107,.9));
+    }
+
+    .h1{
+      font-family:Fraunces,serif;
+      font-size:clamp(2.2rem, 4.2vw, 3.35rem);
+      line-height:1.03;
+      margin:.35rem 0 .9rem;
+      letter-spacing:-.01em;
+    }
+    .h2{
+      font-family:Fraunces,serif;
+      font-size:clamp(1.55rem, 2.6vw, 2.25rem);
+      line-height:1.08;
+      margin:0 0 .65rem;
+      letter-spacing:-.01em;
+    }
+    .h3{
+      font-family:Fraunces,serif;
+      font-size:1.18rem;
+      margin:0 0 .45rem;
+    }
+    .lead{
+      font-size:1.06rem;
+      line-height:1.68;
+      color:var(--muted);
+      max-width:62ch;
+    }
+    .muted{color:var(--muted)}
+    .muted2{color:var(--muted2)}
+    .small{font-size:.92rem}
+
+    /* ======= Sections ======= */
+    main{position:relative}
+    .section{padding:72px 0; position:relative}
+    /* Section veils for smoother, premium transitions */
+    .section--shade:before,
+    .section--veil:before{
+      content:"";
+      position:absolute; inset:0;
+      pointer-events:none;
+      z-index:-1;
+    }
+    .section--shade:before{
+      background:
+        radial-gradient(900px 520px at 12% 20%, rgba(214,177,107,.12), transparent 62%),
+        radial-gradient(900px 620px at 88% 10%, rgba(125,211,252,.10), transparent 62%),
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00));
+      border-top:1px solid rgba(245,241,234,.06);
+      border-bottom:1px solid rgba(245,241,234,.06);
+    }
+    .section--veil:before{
+      background:
+        radial-gradient(900px 520px at 78% 18%, rgba(214,177,107,.14), transparent 62%),
+        radial-gradient(900px 620px at 20% 70%, rgba(240,217,160,.10), transparent 62%),
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00));
+      border-top:1px solid rgba(245,241,234,.06);
+      border-bottom:1px solid rgba(245,241,234,.06);
+    }
+    .section--tight{padding:54px 0}
+
+    .section__head{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:18px;
+      margin-bottom:18px;
+    }
+    .section__head .right{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+
+    .divider{
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(245,241,234,.16), transparent);
+      margin:26px 0 0;
+    }
+
+    /* ======= Hero ======= */
+    .hero{padding:74px 0 30px}
+
+    /* Variante A: Cinematic full-bleed */
+    .hero--cinematic{
+      padding:92px 0 42px;
+      position:relative;
+      overflow:hidden;
+    }
+    .heroBG{
+      position:absolute; inset:0; z-index:-1;
+    }
+    .heroBG__img{
+      width:100%; height:100%;
+      object-fit:cover;
+      filter:saturate(1.05) contrast(1.03);
+      transform:scale(1.02);
+    }
+    .hero--cinematic:before{
+      content:"";
+      position:absolute; inset:0; z-index:-1;
+      background:
+        radial-gradient(900px 520px at 18% 18%, rgba(214,177,107,.18), transparent 62%),
+        radial-gradient(900px 620px at 80% 10%, rgba(125,211,252,.14), transparent 62%),
+        linear-gradient(180deg, rgba(7,10,18,.75), rgba(7,10,18,.62) 40%, rgba(7,10,18,.86));
+      pointer-events:none;
+    }
+
+    .heroCine{
+      position:relative;
+    }
+    .heroCine__top{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:14px;
+      margin-bottom:18px;
+    }
+    .heroCine__meta{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+
+    .heroCine__grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:22px;
+      align-items:start;
+    }
+
+    .heroCine__copy{
+      border-radius:var(--radius2);
+      border:1px solid rgba(245,241,234,.14);
+      background:rgba(10,12,18,.46);
+      backdrop-filter:blur(12px) saturate(150%);
+      box-shadow:var(--shadow);
+      padding:18px;
+    }
+
+    .heroCine__side{
+      position:relative;
+    }
+
+    .heroInfo{
+      border-radius:var(--radius2);
+      border:1px solid rgba(245,241,234,.14);
+      background:rgba(10,12,18,.55);
+      backdrop-filter:blur(12px) saturate(150%);
+      box-shadow:var(--shadow);
+      padding:16px;
+      transform-style:preserve-3d;
+    }
+    .heroInfo__head{
+      display:flex; justify-content:space-between; gap:10px; align-items:center;
+      margin-bottom:12px;
+    }
+    .heroInfo__lines .infoRow{
+      border-bottom:1px dashed rgba(245,241,234,.16);
+    }
+
+    /* Buttons row in hero */
+    .hero__actions{display:flex; gap:12px; flex-wrap:wrap; margin:18px 0 14px}
+
+    .badgeRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    .chip{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(245,241,234,.14);
+      background:rgba(255,255,255,.05);
+      color:rgba(245,241,234,.88);
+      font-weight:750;
+      font-size:.92rem;
+      user-select:none;
+    }
+    .chip b{color:var(--gold2)}
+
+    /* Pills + Open Badge (used in Hero) */
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(245,241,234,.14);
+      background:rgba(255,255,255,.06);
+      color:rgba(245,241,234,.86);
+      font-weight:850;
+      font-size:.86rem;
+      letter-spacing:.02em;
+    }
+    .openBadge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(245,241,234,.14);
+      background:rgba(255,255,255,.06);
+      color:rgba(245,241,234,.88);
+      font-weight:900;
+      font-size:.86rem;
+    }
+    .dot{
+      width:10px; height:10px;
+      border-radius:50%;
+      box-shadow:0 0 0 4px rgba(0,0,0,.18);
+      background:rgba(245,241,234,.35);
+    }
+    .dot.is-open{background:#3BE26F; box-shadow:0 0 0 4px rgba(59,226,111,.16), 0 0 18px rgba(59,226,111,.45)}
+    .dot.is-closed{background:#FF5D5D; box-shadow:0 0 0 4px rgba(255,93,93,.14), 0 0 18px rgba(255,93,93,.35)}
+
+    /* Bento Layout */
+    .bento{display:grid; grid-template-columns:1.25fr .75fr; gap:14px; align-items:stretch}
+    .bentoMain{
+      position:relative;
+      border-radius:var(--radius2);
+      overflow:hidden;
+      border:1px solid rgba(245,241,234,.14);
+      box-shadow:var(--shadow);
+      background:rgba(255,255,255,.04);
+      min-height:400px;
+    }
+    .bentoMain__img{width:100%; height:100%; object-fit:cover; filter:saturate(1.06) contrast(1.03)}
+    .bentoMain:after{
+      content:"";
+      position:absolute; inset:0;
+      /* lighter veil so the cocktail image feels brighter */
+      background:
+        radial-gradient(900px 520px at 18% 20%, rgba(214,177,107,.10), transparent 62%),
+        linear-gradient(180deg, rgba(7,10,18,.06), rgba(7,10,18,.44) 70%, rgba(7,10,18,.56));
+      pointer-events:none;
+    }
+    .bentoMain__overlay{
+      position:absolute; left:16px; right:16px; bottom:16px;
+      border-radius:20px;
+      border:1px solid rgba(245,241,234,.22);
+      /* High-contrast glass: brighter panel for dark images */
+      background:linear-gradient(180deg, rgba(255,255,255,.28), rgba(10,12,18,.78));
+      backdrop-filter:blur(20px) saturate(185%);
+      box-shadow:0 22px 70px rgba(0,0,0,.28);
+      padding:14px;
+      overflow:hidden;
+    }
+    /* extra light veil inside the overlay so text never dies on dark photos */
+    .bentoMain__overlay:before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(900px 320px at 12% 18%, rgba(255,255,255,.06), transparent 62%),
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.46));
+      pointer-events:none;
+    }
+    .bentoMain__overlay > *{position:relative; z-index:1;}
+    .bentoMain__actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:12px}
+
+    /* Make the COCKTAIL overlay text HIGH contrast */
+    .bentoMain__overlay .h2,
+    .bentoMain__overlay .h3,
+    .bentoMain__overlay h3{
+      color:rgba(255,255,255,.98) !important;
+      text-shadow:0 3px 22px rgba(0,0,0,.72);
+      -webkit-text-stroke:0.35px rgba(0,0,0,.35);
+    }
+    .bentoMain__overlay p,
+    .bentoMain__overlay .muted,
+    .bentoMain__overlay .muted2{
+      color:rgba(255,255,255,.90) !important;
+      text-shadow:0 2px 18px rgba(0,0,0,.70);
+    }
+    .bentoMain__overlay .bentoTag{
+      color:rgba(240,217,160,.98);
+      background:rgba(255,255,255,.10);
+      border-color:rgba(245,241,234,.18);
+    }
+    .bentoMain__overlay .btn--ghost{
+      color:rgba(255,255,255,.96) !important;
+      border-color:rgba(245,241,234,.34) !important;
+      background:rgba(255,255,255,.12) !important;
+      box-shadow:0 14px 44px rgba(0,0,0,.22);
+    }
+    .bentoMain__overlay .btn--ghost:hover{
+      background:rgba(255,255,255,.18) !important;
+      border-color:rgba(245,241,234,.46) !important;
+      transform:translateY(-2px);
+    }
+
+    /* Make buttons pop on dark photos (scoped to cocktail overlay only) */
+    .bentoMain__overlay .btn{
+      border-width:1px;
+      text-shadow:none;
+    }
+    .bentoMain__overlay .btn--primary{
+      filter:brightness(1.06) contrast(1.02);
+      box-shadow:0 22px 70px rgba(214,177,107,.20), 0 14px 44px rgba(0,0,0,.20);
+    }
+    .bentoMain__overlay .btn--primary:hover{
+      filter:brightness(1.10) contrast(1.02);
+    }
+    .bentoMain__overlay .btn:focus-visible{
+      outline:3px solid rgba(240,217,160,.55);
+      outline-offset:3px;
+    }
+
+    .bentoSide{display:grid; grid-template-rows:auto auto; gap:14px; align-content:start; justify-items:stretch}
+
+    /* Mini cards (base styles) */
+    .miniCard{
+      border-radius:var(--radius2);
+      overflow:hidden;
+      border:1px solid rgba(245,241,234,.12);
+      background:rgba(255,255,255,.04);
+      box-shadow:0 18px 60px rgba(0,0,0,.26);
+      transition:transform .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease);
+    }
+    .miniCard:hover{transform:translateY(-6px); border-color:rgba(214,177,107,.26); background:rgba(255,255,255,.06)}
+    .miniCard__img{height:220px; width:100%; object-fit:cover; filter:saturate(1.06) contrast(1.02)}
+    .miniCard__pad{padding:14px 14px 16px}
+    .miniTop{display:flex; justify-content:space-between; gap:12px; align-items:baseline; margin-bottom:8px}
+    .miniK{font-weight:900; letter-spacing:.12em; text-transform:uppercase; font-size:.72rem; color:rgba(240,217,160,.92)}
+    .miniP{font-weight:950; color:rgba(240,217,160,.98)}
+
+    /* Bento side cards: compact + less empty (scoped overrides) */
+    .bentoSide{align-content:start}
+    .bentoSide .miniCard{max-width:460px; margin-inline:auto}
+    .bentoSide .miniCard__pad{padding:12px 12px 14px}
+    .bentoSide .miniCard__img{height:200px}
+    .bentoSide .miniTop{margin-bottom:6px}
+    .bentoSide .miniCard p{display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden}
+
+
+    .bentoTag{
+      display:inline-flex;
+      align-items:center;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(245,241,234,.14);
+      background:rgba(255,255,255,.06);
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size:.72rem;
+      color:rgba(240,217,160,.92);
+    }
+
+    .statRow{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:12px; margin-top:14px}
+    .stat{
+      border-radius:var(--radius2);
+      border:1px solid rgba(245,241,234,.12);
+      background:rgba(255,255,255,.04);
+      padding:12px 12px;
+      box-shadow:0 14px 44px rgba(0,0,0,.20);
+    }
+    .stat__k{display:block; color:var(--muted2); font-weight:800; font-size:.86rem; margin-bottom:4px}
+    .stat__v{display:block; font-weight:950; color:rgba(245,241,234,.92)}
+
+    /* Cross media split */
+    .cross2{display:grid; grid-template-columns:.7fr minmax(0, 520px); gap:16px; align-items:center}
+    .cross2__media{
+      position:relative;
+      border-radius:var(--radius2);
+      overflow:hidden;
+      border:1px solid rgba(245,241,234,.14);
+      background:rgba(255,255,255,.04);
+      box-shadow:var(--shadow);
+      /* FIX: Bildfläche kleiner halten */
+      min-height:220px; /* war 300px */
+      max-height:260px;
+    }
+    .cross2__media img{width:100%; height:100%; object-fit:cover; filter:saturate(1.05) contrast(1.02)}
+    .cross2__media:after{
+      content:"";
+      position:absolute; inset:0;
+      /* even lighter veil so the photo + badge pop */
+      background:linear-gradient(180deg, rgba(7,10,18,.04), rgba(7,10,18,.32) 72%, rgba(7,10,18,.50));
+      pointer-events:none;
+    }
+    .cross2__badge{
+      position:absolute; left:16px; right:16px; bottom:16px;
+      border-radius:20px;
+      border:1px solid rgba(245,241,234,.18);
+      /* brighter badge inside the image */
+      background:linear-gradient(180deg, rgba(18,22,34,.64), rgba(18,22,34,.90));
+      backdrop-filter:blur(18px) saturate(170%);
+      box-shadow:0 18px 60px rgba(0,0,0,.22);
+      padding:14px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .cross2__copy{
+      border-radius:var(--radius2);
+      border:1px solid rgba(245,241,234,.14);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow:0 18px 60px rgba(0,0,0,.26);
+      padding:16px;
+      max-width:520px;
+      justify-self:center;
+      align-self:center;
+    }
+    .cross2__actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:12px}
+
+    /* Today highlight in hours list */
+    .hours li.is-today{
+      border-color:rgba(214,177,107,.28);
+      position:relative;
+    }
+    .hours li.is-today:before{
+      content:"Heute";
+      font-weight:950;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size:.68rem;
+      color:rgba(240,217,160,.95);
+      position:absolute;
+      left:0; top:-10px;
+    }
+
+    @media (max-width: 1020px){
+      .bento{grid-template-columns:1fr}
+      .bentoMain{min-height:380px}
+      .bentoSide{grid-template-rows:auto; grid-template-columns:1fr; }
+      .statRow{grid-template-columns:repeat(2, minmax(0,1fr))}
+      .cross2{grid-template-columns:1fr}
+      /* FIX: auch auf Tablet nicht riesig */
+      .cross2__media{min-height:260px; max-height:320px}
+    }
+
+    @media (max-width: 520px){
+      .bentoMain{min-height:420px}
+      .statRow{grid-template-columns:1fr}
+    }
+
+    /* Keep existing heroCard styles (used elsewhere if needed) */
+    .heroCard{
+      position:relative;
+      border-radius:var(--radius2);
+      overflow:hidden;
+      border:1px solid rgba(245,241,234,.14);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      transform-style:preserve-3d;
+    }
+    .heroCard__img{
+      width:100%;
+      height:520px;
+      object-fit:cover;
+      transform:translateZ(0);
+      filter:saturate(1.05) contrast(1.02);
+    }
+    .heroCard:after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(180deg, rgba(7,10,18,.08), rgba(7,10,18,.62) 72%, rgba(7,10,18,.78)),
+        radial-gradient(900px 500px at 20% 10%, rgba(214,177,107,.14), transparent 60%);
+      pointer-events:none;
+    }
+    .heroCard__badge{
+      position:absolute; left:16px; right:16px; bottom:16px;
+      padding:14px 14px;
+      border-radius:18px;
+      border:1px solid rgba(245,241,234,.18);
+      /* brighter, glassy badge (was too dark) */
+      background:linear-gradient(180deg, rgba(18,22,34,.18), rgba(18,22,34,.34));
+      backdrop-filter:blur(16px) saturate(170%);
+      box-shadow:0 18px 60px rgba(0,0,0,.22);
+    }
+    .heroCard__badge .top{
+      display:flex; justify-content:space-between; gap:10px; align-items:center;
+      margin-bottom:6px;
+    }
+
+    /* Responsive hero cinematic */
+    @media (max-width: 1020px){
+      .hero--cinematic{padding:78px 0 34px}
+      .heroCine__top{flex-direction:column; align-items:flex-start}
+      .heroCine__meta{justify-content:flex-start}
+      .heroCine__grid{grid-template-columns:1fr}
+      .heroCine__copy{padding:16px}
+      .heroInfo{padding:14px}
+    }
+
+    @media (max-width: 520px){
+      .hero--cinematic{padding:64px 0 28px}
+      .heroCine__copy{padding:14px}
+      .heroInfo__head{flex-direction:column; align-items:flex-start}
+    }
+
+    /* ======= USP ======= */
+    .usp{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0,1fr));
+      gap:14px;
+      margin-top:18px;
+    }
+    .uspCard{
+      border-radius:var(--radius2);
+      border:1px solid rgba(245,241,234,.12);
+      background:rgba(255,255,255,.05);
+      padding:14px 14px;
+      box-shadow:0 14px 44px rgba(0,0,0,.22);
+      transition:transform .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease);
+    }
+    .uspCard:hover{
+      transform:translateY(-4px);
+      background:rgba(255,255,255,.07);
+      border-color:rgba(245,241,234,.18);
+    }
+    .uspCard .tag{
+      display:inline-block;
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size:.72rem;
+      color:rgba(240,217,160,.92);
+      margin-bottom:8px;
+    }
+    .uspCard p{margin:0; color:var(--muted2); line-height:1.55}
+
+    /* ======= Drinks / Highlights ======= */
+    .grid3{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px}
+    .hCard{
+      border-radius:var(--radius2);
+      overflow:hidden;
+      border:1px solid rgba(245,241,234,.12);
+      background:rgba(255,255,255,.05);
+      box-shadow:0 18px 60px rgba(0,0,0,.26);
+      transition:transform .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease);
+    }
+    .hCard:hover{transform:translateY(-6px); border-color:rgba(214,177,107,.26); background:rgba(255,255,255,.07)}
+    .hCard img{height:220px; width:100%; object-fit:cover; filter:saturate(1.05)}
+    .hCard .pad{padding:14px 14px 16px}
+    .metaRow{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:10px}
+    .price{
+      font-weight:900;
+      color:rgba(240,217,160,.98);
+    }
+    .tiny{
+      font-size:.86rem;
+      color:var(--muted2);
+    }
+
+    /* =====================================
+   FIX v3 (Portrait): Hochkant-Bilder sollen NICHT riesig wirken
+   - Bento Main (Cocktail): feste Höhe + portrait-freundlicher Crop
+   - Side Cards: konsistente Bildhöhe
+   - Cross2 (Essen): wieder etwas größer
+   ===================================== */
+
+/* 1) Bento Wrapper: feste Card-Höhe, Bild bestimmt NICHT die Höhe */
+.bentoMain{
+  height: 420px;          /* Desktop */
+  min-height: unset;      /* überschreibt ältere min-height Regeln */
+}
+
+/* Portrait-freundlich: etwas "reingezoomt" + Fokus nach oben,
+   damit Hochkantbilder nicht wie "zu groß" wirken */
+.bentoMain__img{
+  width:100%;
+  height:100%;
+  object-fit: cover;
+  object-position: center 30%; /* leicht nach oben (Gesicht/Glas oft oben) */
+  transform: scale(1.12);      /* reduziert den Eindruck, dass das Bild die Card "aufzieht" */
+}
+
+/* Tablet */
+@media (max-width: 1020px){
+  .bentoMain{height: 380px;}
+  .bentoMain__img{transform: scale(1.10); object-position: center 28%;}
+}
+
+/* Mobile */
+@media (max-width: 520px){
+  .bentoMain{height: 420px;}
+  .bentoMain__img{transform: scale(1.14); object-position: center 26%;}
+}
+
+/* 2) Side-Cards: Bildhöhe fix, Text bleibt sauber */
+.bentoSide .miniCard__img{
+  height: 170px;
+  width: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  display:block;
+}
+@media (max-width: 520px){
+  .bentoSide .miniCard__img{height: 180px;}
+}
+
+/* 3) Cross2 (Essen): etwas größer als zuletzt (nicht mini) */
+.cross2__media{
+  min-height: 280px;
+  max-height: 340px;
+}
+@media (max-width: 1020px){
+  .cross2__media{min-height: 300px; max-height: 380px;}
+}
+
+/* ======= Cross link Ersan’s ======= */
+    .cross{
+      border-radius:var(--radius2);
+      border:1px solid rgba(214,177,107,.18);
+      background:
+        radial-gradient(700px 400px at 15% 10%, rgba(214,177,107,.16), transparent 62%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow:0 22px 70px rgba(0,0,0,.35);
+      padding:18px;
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:16px;
+      align-items:center;
+      overflow:hidden;
+      position:relative;
+    }
+    .cross:after{
+      content:"";
+      position:absolute; inset:-2px;
+      background:radial-gradient(800px 300px at 70% 0%, rgba(125,211,252,.10), transparent 60%);
+      pointer-events:none;
+    }
+    .cross .actions{display:flex; gap:12px; flex-wrap:wrap; justify-content:flex-end}
+
+    /* ======= Events / Program ======= */
+    .program{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:14px;
+      align-items:start;
+    }
+    .panel{
+      border-radius:var(--radius2);
+      border:1px solid rgba(245,241,234,.12);
+      background:rgba(255,255,255,.05);
+      box-shadow:0 18px 60px rgba(0,0,0,.26);
+      padding:16px;
+    }
+    .hours{margin:12px 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px}
+    .hours li{
+      display:flex; justify-content:space-between; gap:12px; align-items:baseline;
+      padding-bottom:10px;
+      border-bottom:1px dashed rgba(245,241,234,.14);
+    }
+    .hours b{color:rgba(240,217,160,.95)}
+
+    .note{
+      color:var(--muted2);
+      line-height:1.55;
+      margin:0;
+    }
+
+    /* ======= Gallery Carousel ======= */
+    .carousel{
+      border-radius:var(--radius2);
+      border:1px solid rgba(245,241,234,.12);
+      background:rgba(255,255,255,.04);
+      box-shadow:0 22px 70px rgba(0,0,0,.34);
+      overflow:hidden;
+      position:relative;
+    }
+    .track{
+      display:flex;
+      transition:transform .75s var(--ease);
+      will-change:transform;
+      touch-action:pan-y;
+    }
+    .slide{
+      min-width:100%;
+      position:relative;
+      height:460px;
+    }
+    .slide img{width:100%; height:100%; object-fit:cover; filter:saturate(1.05) contrast(1.02)}
+    .slide:after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(180deg, rgba(7,10,18,.18), rgba(7,10,18,.62) 70%, rgba(7,10,18,.78));
+      pointer-events:none;
+    }
+    .carControls{
+      position:absolute; inset:auto 14px 14px 14px;
+      display:flex; justify-content:space-between; gap:12px; align-items:center;
+      pointer-events:none;
+      z-index:5;
+    }
+    .dots{display:flex; gap:8px; align-items:center; pointer-events:auto}
+    .dotBtn{
+      width:10px; height:10px; border-radius:50%;
+      border:1px solid rgba(245,241,234,.22);
+      background:rgba(255,255,255,.10);
+      cursor:pointer;
+      transition:transform .25s var(--ease), background .25s var(--ease);
+    }
+    .dotBtn.is-active{background:rgba(240,217,160,.9); transform:scale(1.12)}
+    .carBtns{display:flex; gap:10px; pointer-events:auto; z-index:6}
+    .iconBtn{
+      width:42px; height:42px;
+      border-radius:999px;
+      border:1px solid rgba(245,241,234,.16);
+      background:rgba(255,255,255,.06);
+      color:rgba(245,241,234,.9);
+      display:inline-flex; align-items:center; justify-content:center;
+      cursor:pointer;
+      transition:transform .25s var(--ease), background .25s var(--ease);
+      pointer-events:auto;
+      position:relative;
+      z-index:7;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .iconBtn:hover{transform:translateY(-1px); background:rgba(255,255,255,.09)}
+
+    /* ======= Location / Contact ======= */
+    .location{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:14px;
+      align-items:stretch;
+    }
+    .info{
+      margin:14px 0;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    /* Kontaktpanel: Nummer/Adresse/Service untereinander, linksbündig, als Block zentriert */
+    .info--stack-center{
+      align-items:flex-start;
+      width:fit-content;
+      max-width:100%;
+      margin-left:auto;
+      margin-right:auto;
+    }
+    .info--stack-center .infoRow{
+      width:100%;
+      justify-content:flex-start;
+    }
+    .info--stack-center .infoRow span{
+      min-width:92px;
+    }
+    .infoRow{
+      display:flex; justify-content:space-between; gap:12px; align-items:baseline;
+      padding-bottom:12px;
+      border-bottom:1px dashed rgba(245,241,234,.14);
+    }
+    .infoRow span{color:var(--muted2)}
+    .infoRow a{color:rgba(240,217,160,.95); text-decoration:none}
+    .infoRow a:hover{text-decoration:underline}
+
+    .map{
+      border-radius:var(--radius2);
+      overflow:hidden;
+      border:1px solid rgba(245,241,234,.12);
+      background:rgba(255,255,255,.04);
+      box-shadow:0 22px 70px rgba(0,0,0,.34);
+      min-height: 420px;
+    }
+    .map iframe{width:100%; height:100%; border:0}
+
+    /* ======= Footer ======= */
+    .footer{
+      padding:34px 0;
+      border-top:1px solid rgba(245,241,234,.10);
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+    }
+    .footer__row{display:flex; justify-content:space-between; gap:16px; align-items:flex-end; flex-wrap:wrap}
+    .footer__links{display:flex; gap:14px; flex-wrap:wrap}
+    .footer__links a{text-decoration:none; font-weight:800; color:rgba(245,241,234,.82)}
+    .footer__links a:hover{color:rgba(240,217,160,.95)}
+
+    /* ======= Floating call button ======= */
+    .callfab{
+      position:fixed; right:16px; bottom:16px; z-index:80;
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      text-decoration:none;
+      padding:12px 14px;
+      border-radius:999px;
+      background:linear-gradient(135deg, rgba(214,177,107,1), rgba(240,217,160,1));
+      color:#0B0E16;
+      font-weight:950;
+      box-shadow:0 26px 70px rgba(214,177,107,.18);
+      transition:transform .25s var(--ease), filter .25s var(--ease);
+    }
+    .callfab:hover{transform:translateY(-2px); filter:brightness(1.02)}
+
+    /* ======= Reveal animations ======= */
+    [data-reveal]{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .85s var(--ease), transform .85s var(--ease);
+    }
+    [data-reveal="float"]{transform:translateY(12px) scale(.985)}
+    .is-in{opacity:1; transform:translateY(0) scale(1)}
+
+    /* ======= Responsive ======= */
+    @media (max-width: 1020px){
+      .hero__grid{grid-template-columns:1fr; gap:18px}
+      .heroCard__img{height:440px}
+      .usp{grid-template-columns:repeat(2, minmax(0,1fr))}
+      .grid3{grid-template-columns:1fr}
+      .cross{grid-template-columns:1fr}
+      .cross .actions{justify-content:flex-start}
+      .program{grid-template-columns:1fr}
+      .location{grid-template-columns:1fr}
+      .slide{height:420px}
+    }
+
+    @media (max-width: 980px){
+      .burger{display:inline-block}
+      .nav{
+        position:fixed;
+        left:16px; right:16px;
+        top:72px;
+        display:none;
+        flex-direction:column;
+        align-items:stretch;
+        gap:10px;
+        padding:14px;
+        border-radius:22px;
+        border:1px solid rgba(245,241,234,.14);
+        background:rgba(7,10,18,.78);
+        backdrop-filter:blur(14px) saturate(160%);
+        box-shadow:var(--shadow);
+      }
+      .nav.is-open{display:flex}
+      .nav__cta{margin-left:0}
+      .section__head{flex-direction:column; align-items:flex-start}
+    }
+
+    @media (max-width: 520px){
+      .wrap{width:min(var(--wrap), calc(100% - 28px))}
+      .hero{padding:60px 0 26px}
+      .section{padding:60px 0}
+      .heroCard__img{height:380px}
+      .slide{height:360px}
+      .usp{grid-template-columns:1fr}
+      .brand{min-width:unset}
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      *{scroll-behavior:auto !important}
+      [data-reveal]{transition:none !important}
+      .track{transition:none !important}
+      .btn, .nav__link, .hCard, .uspCard{transition:none !important}
+    }
+  </style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="header" data-sticky>
+    <div class="wrap header__row">
+      <a class="brand" href="#top" aria-label="Zur Startseite">
+        <!-- IMAGE: LOGO (assets/img/logo.png) -->
+        <img class="brand__logo" src="logo.png" alt="Bar Logo" />
+        <div class="brand__text">
+          <span class="brand__name">Der Stern</span>
+          <span class="brand__sub">Drinks · Stimmung · Bar-Food</span>
+        </div>
+      </a>
+
+      <nav class="nav" data-nav>
+        <a class="nav__link is-active" href="#top">Start</a>
+        <a class="nav__link" href="#drinks">Highlights</a>
+        <a class="nav__link" href="#ersans">Essen</a>
+        <a class="nav__link" href="#gallery">Galerie</a>
+        <a class="nav__link" href="#kontakt">Kontakt</a>
+        <a class="btn btn--primary nav__cta" href="tel:+4998515507900">Anrufen</a>
+      </nav>
+
+      <button class="burger" type="button" aria-label="Menü öffnen" data-burger>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO (Variante A: Cinematic Full-bleed + Overlay Copy) -->
+    <section class="hero hero--cinematic" aria-label="Hero">
+      <div class="heroBG" aria-hidden="true">
+        <!-- IMAGE: HERO (assets/img/hero.jpg) -->
+        <img class="heroBG__img" src="hero.jpeg" alt="" loading="eager" />
+      </div>
+
+      <div class="wrap heroCine">
+        <div class="heroCine__top" data-reveal>
+          <p class="kicker">Dinkelsbühl · Dr.-Martin-Luther-Straße 18</p>
+          <div class="heroCine__meta">
+            <span class="chip">Sitzplätze im Freien</span>
+            <span class="chip">Speisen an der Bar</span>
+            <span class="chip"><b>Heute:</b> <span data-today="label">Zeiten prüfen…</span></span>
+          </div>
+        </div>
+
+        <div class="heroCine__grid">
+          <div class="heroCine__copy" data-reveal>
+            <h1 class="h1">Abend starten. Stimmung spüren. Drinks genießen.</h1>
+            <p class="lead">
+              Eine Bar für gute Gespräche, gute Musik und ehrliche Drinks.
+              Sitzplätze im Freien, Speisen an der Bar – und Essen von <b style="color:rgba(240,217,160,.95)">Ersan’s Kebap</b> direkt nebenan.
+            </p>
+
+            <div class="hero__actions">
+              <a class="btn btn--primary" href="https://www.google.com/maps?hl=de&gl=de&um=1&ie=UTF-8&fb=1&sa=X&geocode=KVsZojCF6ZhHMYxH704I4_4Y&daddr=Dr.-Martin-Luther-Stra%C3%9Fe+18,+91550+Dinkelsb%C3%BChl" target="_blank" rel="noopener">Route öffnen</a>
+              <a class="btn btn--ghost" href="tel:+4998515507900">Jetzt anrufen</a>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="usp" data-reveal style="transition-delay:.06s">
+              <div class="uspCard">
+                <span class="tag">Atmosphäre</span>
+                <p>Warm, modern, nicht laut – aber lebendig. Perfekt für den Start in die Nacht.</p>
+              </div>
+              <div class="uspCard">
+                <span class="tag">Drinks</span>
+                <p>Von Klassikern bis Specials – sauber gemixt, klar serviert, ohne Schnickschnack.</p>
+              </div>
+              <div class="uspCard">
+                <span class="tag">Bar‑Food</span>
+                <p>Wenn Hunger kommt: unkompliziert & lecker – Essen von Ersan’s direkt verfügbar.</p>
+              </div>
+              <div class="uspCard">
+                <span class="tag">Late Night</span>
+                <p>Do–Sa länger offen. Komm spontan vorbei oder ruf kurz durch.</p>
+              </div>
+            </div>
+          </div>
+
+          <aside class="heroCine__side" data-reveal="float">
+            <div class="heroInfo" data-tilt>
+              <div class="heroInfo__head">
+                <span class="pill">Open status</span>
+                <span class="openBadge"><span class="dot" data-open-dot></span><span data-open-text>prüfe…</span></span>
+              </div>
+              <div class="heroInfo__lines">
+                <div class="infoRow"><span>Adresse</span><b>Dr.-Martin-Luther-Straße 18</b></div>
+                <div class="infoRow"><span>Ort</span><b>91550 Dinkelsbühl</b></div>
+                <div class="infoRow"><span>Telefon</span><b><a href="tel:+4998515507900">09851 5507900</a></b></div>
+              </div>
+              <p class="muted2 small" style="margin:12px 0 0">Tipp: Wenn’s voll ist, kurz anrufen – wir sagen dir direkt, wie’s aussieht.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- HIGHLIGHTS (Bento Layout – kein Template-Vibe) -->
+    <section class="section section--shade" id="drinks">
+      <div class="wrap">
+        <header class="section__head" data-reveal>
+          <div>
+            <h2 class="h2">Highlights des Abends</h2>
+            <p class="muted">Kuratiert & schnell erfassbar – wirkt edel, modern und komplett anders als die Ersan‑Struktur.</p>
+          </div>
+          <div class="right">
+            <span class="chip">Signature Drinks</span>
+            <span class="chip">Premium Vibe</span>
+          </div>
+        </header>
+
+        <div class="bento">
+          <article class="bentoMain" data-reveal>
+            <!-- IMAGE: HIGHLIGHTS MAIN (assets/img/drinks-1.jpg) -->
+            <img class="bentoMain__img" src="cocktail.png" alt="Signature Cocktail" />
+            <div class="bentoMain__overlay">
+              <span class="bentoTag">Signature</span>
+              <h3 class="h2" style="margin:.2rem 0 .35rem">Cocktails, die sitzen.</h3>
+              <p class="muted" style="margin:0; max-width:58ch">
+                Elegant, frisch, nicht zu süß – perfekt zum Ankommen. Klassiker + Specials, sauber gemixt und klar serviert.
+              </p>
+              <div class="bentoMain__actions">
+                <a class="btn btn--primary" href="#kontakt">Kontakt</a>
+                <a class="btn btn--ghost" href="#gallery">Einblicke</a>
+              </div>
+            </div>
+          </article>
+
+          <div class="bentoSide">
+            <article class="miniCard" data-reveal style="transition-delay:.06s">
+              <!-- IMAGE: HIGHLIGHTS MINI 1 (assets/img/drinks-2.jpg) -->
+              <img class="miniCard__img" src="mojito.png" alt="Longdrink" />
+              <div class="miniCard__pad">
+                <div class="miniTop">
+                  <span class="miniK">Klassiker</span>
+                  <span class="miniP">ab 7,50 €</span>
+                </div>
+                <h3 class="h3">Longdrinks</h3>
+                <p class="muted2" style="margin:0">Unkompliziert, schnell, hochwertig. Genau richtig für den Abend mit Freunden.</p>
+              </div>
+            </article>
+
+            <article class="miniCard" data-reveal style="transition-delay:.12s">
+              <!-- IMAGE: HIGHLIGHTS MINI 2 (assets/img/drinks-3.jpg) -->
+              <img class="miniCard__img" src="bier.png" alt="Bier und Shots" />
+              <div class="miniCard__pad">
+                <div class="miniTop">
+                  <span class="miniK">Schnell bestellt</span>
+                  <span class="miniP">ab 3,50 €</span>
+                </div>
+                <h3 class="h3">Bier & Shots</h3>
+                <p class="muted2" style="margin:0">Für die Runde: Klassiker, kalt, schnell da. Ohne lange Wartezeiten.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="statRow" data-reveal style="transition-delay:.06s">
+          <div class="stat">
+            <span class="stat__k">Atmosphäre</span>
+            <b class="stat__v">Warm & modern</b>
+          </div>
+          <div class="stat">
+            <span class="stat__k">Service</span>
+            <b class="stat__v">Sitzplätze im Freien</b>
+          </div>
+          <div class="stat">
+            <span class="stat__k">Food</span>
+            <b class="stat__v">Essen an der Bar</b>
+          </div>
+          <div class="stat">
+            <span class="stat__k">Heute</span>
+            <b class="stat__v" data-today="hours">…</b>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+      </div>
+    </section>
+
+    <!-- CROSS LINK: ERSAN'S (Media Split – passt zum neuen Hero) -->
+    <section class="section section--tight section--veil" id="ersans">
+      <div class="wrap cross2">
+        <div class="cross2__media" data-reveal="float">
+          <!-- IMAGE: ERSANS FOOD (assets/img/gallery-2.jpg) -->
+          <img src="currywurst.jpg" alt="Essen von Ersan’s Kebap" />
+          <div class="cross2__badge">
+            <span class="bentoTag">Bar‑Food</span>
+            <strong>Essen von Ersan’s direkt im Haus</strong>
+            <span class="muted2 small">Perfekt, wenn der Hunger kommt.</span>
+          </div>
+        </div>
+
+        <div class="cross2__copy" data-reveal>
+          <p class="kicker">Essen verfügbar</p>
+          <h2 class="h2">Bar & Ersan’s – perfekt kombiniert</h2>
+          <p class="muted">
+            Du sitzt in der Bar – und wenn’s nach etwas Deftigem ruft, bekommst du das Essen von Ersan’s Kebap direkt nebenan.
+            Ideal für Abende, die länger werden.
+          </p>
+          <div class="cross2__actions">
+            <a class="btn btn--primary" href="https://ersans-kebap.de/" title="Zur Ersan’s Seite">Zur Ersan’s Seite</a>
+            <a class="btn btn--ghost" href="https://ersans-kebap.de/menu" title="Zur Speisekarte">Speisekarte ansehen</a>
+          </div>
+          <p class="muted2 small" style="margin:12px 0 0"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY CAROUSEL -->
+    <section class="section" id="gallery">
+      <div class="wrap">
+        <header class="section__head" data-reveal>
+          <div>
+            <h2 class="h2">Einblicke</h2>
+          </div>
+          <div class="right">
+            <span class="chip">Auto‑Play</span>
+          </div>
+        </header>
+
+        <div class="carousel" data-carousel data-reveal="float" aria-label="Galerie Carousel">
+          <div class="track" data-track>
+            <!-- IMAGE: GALLERY 1 (assets/img/gallery-1.jpg) -->
+            <div class="slide"><img src="carousel1.jpeg" alt="Bar Impression 1" /></div>
+            <!-- IMAGE: GALLERY 2 (assets/img/gallery-2.jpg) -->
+            <div class="slide"><img src="carousel2.jpeg" alt="Bar Impression 2" /></div>
+            <!-- IMAGE: GALLERY 3 (assets/img/gallery-3.jpg) -->
+            <div class="slide"><img src="carousel3.jpeg" alt="Bar Impression 3" /></div>
+          </div>
+
+          <div class="carControls" aria-hidden="false">
+            <div class="dots" data-dots></div>
+            <div class="carBtns">
+              <button class="iconBtn" type="button" aria-label="Zurück" data-prev>‹</button>
+              <button class="iconBtn" type="button" aria-label="Weiter" data-next>›</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+      </div>
+    </section>
+
+    <!-- CONTACT / LOCATION -->
+    <section class="section" id="kontakt">
+      <div class="wrap">
+        <header class="section__head" data-reveal>
+          <div>
+            <h2 class="h2">Kontakt & Standort</h2>
+            <p class="muted">Schnell erreichbar – Route öffnen oder direkt anrufen.</p>
+          </div>
+          <div class="right">
+            <a class="btn btn--primary" href="tel:+4998515507900">09851 5507900</a>
+          </div>
+        </header>
+
+        <div class="location">
+          <div class="panel" data-reveal>
+            <h3 class="h3">Infos</h3>
+            <div class="info info--stack-center">
+              <div class="infoRow"><span>Adresse</span><b>Dr.-Martin-Luther-Straße 18, 91550 Dinkelsbühl</b></div>
+              <div class="infoRow"><span>Telefon</span><b><a href="tel:+4998515507900">09851 5507900</a></b></div>
+              <div class="infoRow"><span>Service</span><b>Sitzplätze im Freien · Speisen an der Bar</b></div>
+            </div>
+
+            <div style="display:flex; gap:12px; flex-wrap:wrap">
+              <a class="btn btn--primary" href="https://www.google.com/maps?hl=de&gl=de&um=1&ie=UTF-8&fb=1&sa=X&geocode=KVsZojCF6ZhHMYxH704I4_4Y&daddr=Dr.-Martin-Luther-Stra%C3%9Fe+18,+91550+Dinkelsb%C3%BChl" target="_blank" rel="noopener">Route öffnen</a>
+              <a class="btn btn--ghost" href="#kontakt">Öffnungszeiten</a>
+            </div>
+
+            <p class="muted2 small" style="margin:14px 0 0">
+              Der Stern freut sich auf deinen Besuch 
+            </p>
+          </div>
+
+          <div class="map" data-reveal="float">
+            <iframe
+              title="Google Maps Standort"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Dr%20Martin-Luther-Stra%C3%9Fe%2018%20915550%20Dinkelsb%C3%BChl&output=embed">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__row">
+      <div>
+        <strong style="letter-spacing:.02em">Der Stern</strong>
+        <div class="muted2 small">© <span data-year></span> · Dinkelsbühl</div>
+      </div>
+      <div class="footer__links">
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+        <a href="https://ersans-kebap.de/">Essen von Ersan’s</a>
+      </div>
+    </div>
+  </footer>
+
+  <a class="callfab" href="tel:+4998515507900" aria-label="Jetzt anrufen">Anrufen</a>
+
+  <script>
+    /* =============================
+       app.js
+       ============================= */
+
+    // 1) Year
+    document.querySelectorAll('[data-year]').forEach(el => {
+      el.textContent = new Date().getFullYear();
+    });
+
+    // 2) Mobile nav toggle
+    const burger = document.querySelector('[data-burger]');
+    const nav = document.querySelector('[data-nav]');
+    if (burger && nav) {
+      burger.addEventListener('click', () => nav.classList.toggle('is-open'));
+      nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('is-open')));
+    }
+
+    // 3) Reveal on scroll
+    const revealItems = document.querySelectorAll('[data-reveal]');
+    if (revealItems.length) {
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-in');
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.14 });
+      revealItems.forEach(el => io.observe(el));
+    }
+
+    // 4) Smooth anchor scrolling (fallback)
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if (!id || id === '#') return;
+        const target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.replaceState(null, '', id);
+      });
+    });
+
+    // 5) Subtle tilt (hero card) - desktop only
+    const tiltEl = document.querySelector('[data-tilt]');
+    const canTilt = () => window.matchMedia('(pointer:fine)').matches && window.innerWidth > 980;
+    if (tiltEl) {
+      let rect = tiltEl.getBoundingClientRect();
+      const updateRect = () => rect = tiltEl.getBoundingClientRect();
+      window.addEventListener('resize', updateRect);
+
+      const onMove = (e) => {
+        if (!canTilt()) return;
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        tiltEl.style.transform = `rotateX(${(-y*5).toFixed(2)}deg) rotateY(${(x*7).toFixed(2)}deg) translateY(-6px)`;
+      };
+      const onLeave = () => {
+        tiltEl.style.transform = 'rotateX(0deg) rotateY(0deg) translateY(0px)';
+      };
+
+      tiltEl.addEventListener('mousemove', onMove);
+      tiltEl.addEventListener('mouseleave', onLeave);
+      window.addEventListener('scroll', updateRect, { passive:true });
+    }
+
+    // 6) Open now badge + today label
+    // Öffnungszeiten (0=Sonntag .. 6=Samstag)
+    const HOURS = {
+      0: { open: '15:00', close: '23:00' }, // Sun
+      1: null,                              // Mon closed
+      2: { open: '17:00', close: '23:00' }, // Tue
+      3: { open: '17:00', close: '23:00' }, // Wed
+      4: { open: '17:00', close: '01:00' }, // Thu
+      5: { open: '17:00', close: '02:30' }, // Fri
+      6: { open: '15:00', close: '02:30' }, // Sat
+    };
+
+    function toMinutes(hhmm){
+      const [h,m] = hhmm.split(':').map(Number);
+      return h*60 + m;
+    }
+
+    function isOpenNow(date = new Date()){
+      const day = date.getDay();
+      const today = HOURS[day];
+      if (!today) return { open:false, label:'Heute geschlossen', hours:'Geschlossen' };
+
+      const nowMin = date.getHours()*60 + date.getMinutes();
+      const o = toMinutes(today.open);
+      const c = toMinutes(today.close);
+
+      // handle after-midnight closing (e.g. 01:00, 02:30)
+      const crossesMidnight = c < o;
+      let openNow = false;
+
+      if (!crossesMidnight){
+        openNow = nowMin >= o && nowMin < c;
+      } else {
+        // open from o -> 24:00 and 0 -> c
+        openNow = (nowMin >= o) || (nowMin < c);
+      }
+
+      const hoursTxt = `${today.open}–${today.close}`;
+      return { open: openNow, label: openNow ? `Geöffnet · bis ${today.close}` : `Heute · ${hoursTxt}`, hours: hoursTxt };
+    }
+
+    function setOpenUI(){
+      const now = new Date();
+      const res = isOpenNow(now);
+      const dot = document.querySelector('[data-open-dot]');
+      const txt = document.querySelector('[data-open-text]');
+      const todayLabel = document.querySelector('[data-today="label"]');
+      const todayHours = document.querySelector('[data-today="hours"]');
+
+      if (dot){
+        dot.classList.toggle('is-open', res.open);
+        dot.classList.toggle('is-closed', !res.open);
+      }
+      if (txt) txt.textContent = res.label;
+      if (todayLabel) todayLabel.textContent = res.hours === 'Geschlossen' ? 'Heute geschlossen' : res.hours;
+      if (todayHours) todayHours.textContent = res.hours;
+
+      // Highlight today's row in the opening-hours list
+      const day = now.getDay();
+      document.querySelectorAll('.hours li[data-day]').forEach(li => {
+        li.classList.toggle('is-today', Number(li.dataset.day) === day);
+      });
+    }
+
+    setOpenUI();
+    setInterval(setOpenUI, 60000);
+
+    // 7) Gallery carousel (autoplay + swipe)
+    const car = document.querySelector('[data-carousel]');
+    if (car){
+      const track = car.querySelector('[data-track]');
+      const slides = track ? Array.from(track.children) : [];
+      const dotsWrap = car.querySelector('[data-dots]');
+      const btnPrev = car.querySelector('[data-prev]');
+      const btnNext = car.querySelector('[data-next]');
+
+      let index = 0;
+      let autoplay = true;
+      let timer = null;
+
+      const update = () => {
+        if (!track || !slides.length) return;
+        track.style.transform = `translateX(${-index*100}%)`;
+        dotsWrap?.querySelectorAll('.dotBtn').forEach((d,i) => d.classList.toggle('is-active', i === index));
+      };
+
+      const stop = () => { if (timer) clearInterval(timer); timer = null; };
+      const start = () => {
+        if (!autoplay || !slides.length) return;
+        stop();
+        timer = setInterval(() => next(false), 4200);
+      };
+      const restart = () => { stop(); start(); };
+
+      const goTo = (i, user=false) => {
+        if (!slides.length) return;
+        index = (i + slides.length) % slides.length;
+        update();
+        if (user) restart();
+      };
+
+      const next = (user=false) => goTo(index+1, user);
+      const prev = (user=false) => goTo(index-1, user);
+
+      // dots
+      if (dotsWrap && slides.length){
+        dotsWrap.innerHTML = '';
+        slides.forEach((_, i) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'dotBtn' + (i === 0 ? ' is-active' : '');
+          b.setAttribute('aria-label', `Slide ${i+1}`);
+          b.addEventListener('click', () => goTo(i, true));
+          dotsWrap.appendChild(b);
+        });
+      }
+
+      // arrows
+      btnNext?.addEventListener('click', () => next(true));
+      btnPrev?.addEventListener('click', () => prev(true));
+
+      // pause on hover (desktop)
+      car.addEventListener('mouseenter', () => { autoplay = false; stop(); });
+      car.addEventListener('mouseleave', () => { autoplay = true; start(); });
+
+      // swipe
+      let startX = 0;
+      let dx = 0;
+      let isDown = false;
+
+      const onDown = (x) => { isDown = true; startX = x; dx = 0; stop(); };
+      const onMove = (x) => { if (!isDown) return; dx = x - startX; };
+      const onUp = () => {
+        if (!isDown) return;
+        isDown = false;
+        const threshold = 50;
+        if (dx > threshold) prev(true);
+        else if (dx < -threshold) next(true);
+        start();
+      };
+
+      car.addEventListener('pointerdown', (e) => {
+        // Don't let swipe logic steal clicks on controls
+        if (e.target.closest('[data-prev], [data-next], [data-dots]')) return;
+        if (car.setPointerCapture) car.setPointerCapture(e.pointerId);
+        onDown(e.clientX);
+      });
+      car.addEventListener('pointermove', (e) => {
+        if (e.target.closest('[data-prev], [data-next], [data-dots]')) return;
+        onMove(e.clientX);
+      });
+      car.addEventListener('pointerup', (e) => {
+        if (e.target.closest('[data-prev], [data-next], [data-dots]')) {
+          // If the user released on a control, just restart autoplay
+          restart();
+          return;
+        }
+        onUp();
+      });
+      car.addEventListener('pointercancel', onUp);
+
+      // start autoplay
+      start();
+    }
+  </script>
+</body>
+</html>
