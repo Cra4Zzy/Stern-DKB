@@ -1,17 +1,55 @@
 const menuButton = document.querySelector(".menu-toggle");
 const navigation = document.querySelector(".main-nav");
+const mobileMenuQuery = window.matchMedia("(max-width: 980px)");
+
+const setMenuState = (isOpen, returnFocus = false) => {
+  if (!menuButton || !navigation) return;
+
+  navigation.classList.toggle("is-open", isOpen);
+  menuButton.setAttribute("aria-expanded", String(isOpen));
+  menuButton.setAttribute("aria-label", isOpen ? "Navigation schließen" : "Navigation öffnen");
+  document.documentElement.classList.toggle("menu-open", isOpen);
+  document.body.classList.toggle("menu-open", isOpen);
+
+  if (mobileMenuQuery.matches) {
+    navigation.inert = !isOpen;
+  } else {
+    navigation.inert = false;
+  }
+
+  if (isOpen) {
+    window.requestAnimationFrame(() => navigation.querySelector("a")?.focus());
+  } else if (returnFocus) {
+    menuButton.focus();
+  }
+};
+
+menuButton?.setAttribute("aria-controls", "main-navigation");
+if (navigation) navigation.id = "main-navigation";
 
 menuButton?.addEventListener("click", () => {
-  const isOpen = navigation.classList.toggle("is-open");
-  menuButton.setAttribute("aria-expanded", String(isOpen));
+  setMenuState(!navigation?.classList.contains("is-open"));
 });
 
 navigation?.querySelectorAll("a").forEach((link) => {
-  link.addEventListener("click", () => {
-    navigation.classList.remove("is-open");
-    menuButton?.setAttribute("aria-expanded", "false");
-  });
+  link.addEventListener("click", () => setMenuState(false));
 });
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && navigation?.classList.contains("is-open")) {
+    setMenuState(false, true);
+  }
+});
+
+const resetMenuForViewport = () => setMenuState(false);
+if (typeof mobileMenuQuery.addEventListener === "function") {
+  mobileMenuQuery.addEventListener("change", resetMenuForViewport);
+} else {
+  mobileMenuQuery.addListener(resetMenuForViewport);
+}
+
+window.addEventListener("pageshow", () => setMenuState(false));
+setMenuState(false);
 
 const revealElements = document.querySelectorAll(".reveal");
 if ("IntersectionObserver" in window) {
